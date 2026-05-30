@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spreadsheet</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <main class="sheet-area">
+      <section class="sheet-workspace" aria-label="스프레드시트 작업 영역">
+        <header class="formula-bar" aria-label="스프레드시트 도구 모음">
+          <label class="name-box" for="name-box-display">
+            <span class="visually-hidden">현재 셀 좌표</span>
+            <output id="name-box-display" class="name-box__value" aria-live="polite">A1</output>
+          </label>
+          <span class="formula-bar__fx" aria-hidden="true">fx</span>
+          <input
+            id="formula-input"
+            class="formula-bar__input"
+            type="text"
+            spellcheck="false"
+            aria-label="선택된 셀 값"
+            autocomplete="off"
+          />
+          <button type="button" class="btn btn--primary" id="btn-export">
+            Export CSV
+          </button>
+        </header>
+
+        <div class="sheet-scroll">
+          <input
+            id="cell-input"
+            class="sheet-cell-input visually-hidden"
+            type="text"
+            spellcheck="false"
+            autocomplete="off"
+            aria-hidden="true"
+            tabindex="-1"
+          />
+          <table id="sheet-grid" class="sheet-grid" aria-label="9 by 9 스프레드시트">
+            <thead></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>

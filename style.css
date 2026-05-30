@@ -1,0 +1,301 @@
+:root {
+  --color-text: #202124;
+  --color-text-muted: #5f6368;
+  --color-surface: #fff;
+  --color-canvas: #f8f9fa;
+  --color-border: #dadce0;
+  --color-header-bg: #f3f3f3;
+  --color-header-active-bg: #e3f2fd;
+  --color-primary: #1a73e8;
+  --color-primary-hover: #1765cc;
+  --color-primary-active: #1557b0;
+  --color-cell-focus: #2563eb;
+  --shadow-sheet: 0 1px 3px rgba(60, 64, 67, 0.12);
+  --shadow-workspace: 0 1px 2px rgba(60, 64, 67, 0.08), 0 4px 12px rgba(60, 64, 67, 0.06);
+  --size-cell-width: 96px;
+  --size-row-header-width: 40px;
+  --size-cell-height: 24px;
+  --size-formula-bar-height: 36px;
+  --radius-workspace: 8px;
+  --space-sheet: 16px;
+  --space-formula-bar: 6px 8px;
+  --space-formula-gap: 8px;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 13px;
+  color: var(--color-text);
+  background: var(--color-canvas);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.sheet-area {
+  flex: 1;
+  padding: var(--space-sheet);
+  overflow: auto;
+}
+
+.sheet-workspace {
+  display: inline-flex;
+  flex-direction: column;
+  min-width: min-content;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-workspace);
+  box-shadow: var(--shadow-workspace);
+  overflow: hidden;
+}
+
+.formula-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--space-formula-gap);
+  min-height: var(--size-formula-bar-height);
+  padding: var(--space-formula-bar);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.formula-bar__fx {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  font-size: 11px;
+  font-weight: 600;
+  font-style: italic;
+  line-height: 28px;
+  color: var(--color-text-muted);
+  text-align: center;
+  background: var(--color-header-bg);
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  user-select: none;
+}
+
+.formula-bar__input {
+  flex: 1;
+  min-width: 120px;
+  height: 28px;
+  padding: 0 8px;
+  font: inherit;
+  line-height: 28px;
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  outline: none;
+}
+
+.formula-bar__input:focus {
+  border-color: var(--color-cell-focus);
+  box-shadow: inset 0 0 0 1px var(--color-cell-focus);
+}
+
+.name-box {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 52px;
+  width: var(--size-row-header-width);
+  height: 28px;
+  padding: 0 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+}
+
+.name-box__value {
+  font: inherit;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.btn {
+  flex-shrink: 0;
+  height: 28px;
+  padding: 0 12px;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 500;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.btn--secondary {
+  color: var(--color-text);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.btn--secondary:hover {
+  background: var(--color-header-bg);
+  border-color: #c4c7c5;
+}
+
+.btn--secondary:active {
+  background: #e8eaed;
+}
+
+.btn--primary {
+  color: var(--color-surface);
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+}
+
+.btn--primary:hover {
+  background: var(--color-primary-hover);
+  border-color: var(--color-primary-hover);
+}
+
+.btn--primary:active {
+  background: var(--color-primary-active);
+  border-color: var(--color-primary-active);
+}
+
+.sheet-scroll {
+  overflow: auto;
+  background: var(--color-surface);
+}
+
+.sheet-grid {
+  border-collapse: collapse;
+  table-layout: fixed;
+  width: calc(var(--size-row-header-width) + (var(--size-cell-width) * 9));
+}
+
+.sheet-grid__corner,
+.sheet-grid__col-header,
+.sheet-grid__row-header,
+.sheet-grid__cell {
+  border: 1px solid var(--color-border);
+}
+
+.sheet-grid__corner {
+  width: var(--size-row-header-width);
+  min-width: var(--size-row-header-width);
+  height: var(--size-cell-height);
+  background: var(--color-header-bg);
+}
+
+.sheet-grid__col-header,
+.sheet-grid__row-header {
+  background: var(--color-header-bg);
+  color: var(--color-text-muted);
+  font-weight: 500;
+  text-align: center;
+  user-select: none;
+}
+
+.sheet-grid__col-header {
+  width: var(--size-cell-width);
+  min-width: var(--size-cell-width);
+  height: var(--size-cell-height);
+}
+
+.sheet-grid__row-header {
+  width: var(--size-row-header-width);
+  min-width: var(--size-row-header-width);
+  height: var(--size-cell-height);
+}
+
+.sheet-grid__col-header--is-active,
+.sheet-grid__row-header--is-active {
+  background: var(--color-header-active-bg);
+}
+
+.sheet-grid__cell {
+  position: relative;
+  width: var(--size-cell-width);
+  min-width: var(--size-cell-width);
+  max-width: var(--size-cell-width);
+  height: var(--size-cell-height);
+  max-height: var(--size-cell-height);
+  padding: 0;
+  background: var(--color-surface);
+  vertical-align: middle;
+  outline: none;
+  overflow: hidden;
+}
+
+.sheet-grid__cell-display {
+  display: block;
+  width: 100%;
+  height: var(--size-cell-height);
+  padding: 0 4px;
+  line-height: var(--size-cell-height);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+  pointer-events: none;
+}
+
+.sheet-grid__cell.active-cell,
+.sheet-grid__cell.editing-cell,
+.sheet-grid__cell--expanded {
+  overflow: visible;
+  z-index: 4;
+}
+
+.sheet-grid__cell.editing-cell {
+  z-index: 5;
+}
+
+.sheet-grid__cell-display--expanded {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: max-content;
+  min-width: 100%;
+  max-width: none;
+  height: var(--size-cell-height);
+  overflow: visible;
+  background: var(--color-surface);
+  box-shadow: 0 1px 3px rgba(60, 64, 67, 0.2);
+  pointer-events: auto;
+  z-index: 1;
+}
+
+.sheet-grid__cell.editing-cell .sheet-grid__cell-display {
+  pointer-events: auto;
+  outline: none;
+}
+
+.sheet-grid__cell.active-cell {
+  border: 2px solid var(--color-cell-focus);
+}
+
+.sheet-grid__cell.editing-cell {
+  border: 2px solid var(--color-cell-focus);
+}
